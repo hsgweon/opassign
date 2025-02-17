@@ -28,6 +28,7 @@ mamba create -n opassign_env -y -c conda-forge -c bioconda conda-forge::biopytho
 ## 🎬 Running seqdemu
 
 ```bash
+mamba activate opassign_env
 ./opassign.py -i rep_16S23S_nr.fasta -o assigned_tanoxony.txt -t 100
 ```
 
