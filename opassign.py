@@ -13,7 +13,7 @@ import progressbar
 parser = argparse.ArgumentParser("seqdemu: A No-Nonsense Nanopore Demultiplexer.")
 parser.add_argument("-i", action="store", dest="infile", metavar="infile", help="[REQUIRED]", required=True)
 parser.add_argument("-o", action="store", dest="outfile", metavar="outfile", help="[REQUIRED]", required=True)
-parser.add_argument("-c", action = "store", dest = "chunksize", metavar = "chunksize", help = "[OPTIONAL] Chunk size", default = "100")
+parser.add_argument("-c", action = "store", dest = "chunksize", metavar = "chunksize", help = "[OPTIONAL] Chunk size", default = "1000")
 parser.add_argument("-t", action="store", dest="threads", metavar="threads", help="[REQUIRED]", required=True)
 options = parser.parse_args()
 
@@ -85,9 +85,10 @@ if __name__ == "__main__":
     # Number of CPUs to use
     num_cpus = int(options.threads)
     chunk_size = int(options.chunksize) # Number of sequences in a chunk
-    total_lines = count_lines(options.infile)
 
-    print(f"Total number of sequences to process: {total_lines}")
+    print(f"Counting the total number of sequences to process...")
+    total_lines = count_lines(options.infile)
+    print(f"Total number of sequences: {total_lines}")
 
     # Start progressbar with total number of lines
     pbar = progressbar.ProgressBar(max_value=total_lines).start()
