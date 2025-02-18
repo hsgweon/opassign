@@ -33,8 +33,9 @@ def process_chunk(chunk_file, temp_file_prefix_cpu, temp_dir, chunk_size, progre
     
     MAX_RAM = "1000g"
     PATH_CLASSIFIER = "/home/xc917132/applications/rdp_classifier_2.14/dist/classifier.jar"
-    PATH_RDPCLASSIFIER_DB = "/home/xc917132/applications/rdp_db/GROND_trained_207/GROND_retrained/rRNAClassifier.properties"
-
+    #PATH_RDPCLASSIFIER_DB = "/home/xc917132/applications/rdp_db/GROND_trained_207/GROND_retrained/rRNAClassifier.properties"
+    PATH_RDPCLASSIFIER_DB = options.rdp_db
+    
     command = f"java -Xms512M -Xmx{MAX_RAM} -jar {PATH_CLASSIFIER} classify -t {PATH_RDPCLASSIFIER_DB} -o {output_file} {chunk_file}"
     subprocess.run(command, shell=True, check=True)
     
@@ -51,6 +52,7 @@ if __name__ == "__main__":
     parser.add_argument("-o", required=True, dest="outfile", metavar="outfile", help="[REQUIRED]")
     parser.add_argument("-c", dest="chunksize", metavar="chunksize", help="[OPTIONAL] Chunk size", default="1000")
     parser.add_argument("-t", required=True, dest="threads", metavar="threads", help="[REQUIRED]")
+    parser.add_argument("-d", required=True, dest="rdp_db", metavar="rdp_db", help="[REQUIRED]")
     options = parser.parse_args()
     
     manager = Manager()
